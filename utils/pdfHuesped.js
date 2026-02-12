@@ -1,6 +1,6 @@
 const PDFDocument = require("pdfkit");
 
-function generarPdfReporteHuespedes(huespedes) {
+function generarPdfReporteHuespedes(huespedes, fechaDesde, fechaHasta) {
   const doc = new PDFDocument({ size: "A4", margin: 40 });
 
   const fechaImpresion = new Date().toLocaleString("es-CO", {
@@ -23,7 +23,9 @@ function generarPdfReporteHuespedes(huespedes) {
   doc.moveDown(0.5);
   doc.fontSize(10).font("Helvetica").fillColor("#555");
   doc.text(`Fecha de impresión: ${fechaImpresion}`, { align: "center" });
-
+  doc.text(`Fecha del reporte: ${fechaDesde} al ${fechaHasta}`, {
+    align: "center",
+  });
   doc.moveDown(1);
   doc.moveTo(40, doc.y).lineTo(555, doc.y).stroke();
   doc.moveDown(1);

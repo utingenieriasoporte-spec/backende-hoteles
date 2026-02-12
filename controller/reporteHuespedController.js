@@ -2,12 +2,17 @@ const reporteHuespedesService = require("../services/reportes/reporteHuespedServ
 
 async function descargarReporteHuespedes(req, res) {
   try {
-    const pdf = await reporteHuespedesService.generarReporteHuespedesCheckin();
+    const { fechaDesde, fechaHasta } = req.query;
+
+    const pdf = await reporteHuespedesService.generarReporteHuespedesCheckin({
+      fechaDesde,
+      fechaHasta,
+    });
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      "inline; filename=reporte_huespedes_checkin.pdf",
+      `inline; filename=reporte_huespedes_${fechaDesde}_a_${fechaHasta}.pdf`,
     );
 
     pdf.pipe(res);
