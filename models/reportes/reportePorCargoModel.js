@@ -1,6 +1,10 @@
 const db = require("../db");
 
-async function obtenerReporteCargosPorConcepto(fecha, idOperador) {
+async function obtenerReporteCargosPorConcepto(
+  fechaDesde,
+  fechaHasta,
+  idOperador,
+) {
   const [rows] = await db.execute(
     `
     SELECT
@@ -32,7 +36,7 @@ async function obtenerReporteCargosPorConcepto(fecha, idOperador) {
         r.metodo_pago,
         c.fecha_creacion;
     `,
-    [idOperador, fecha, fecha],
+    [idOperador, fechaDesde, fechaHasta],
   );
 
   return rows;
